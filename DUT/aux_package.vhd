@@ -2,6 +2,22 @@ library IEEE;
 use ieee.std_logic_1164.all;
 
 package aux_package is
+---------------------------------------------------------------------
+component top_signal_tap IS
+  GENERIC (HEX_Size:integer := 14;
+		   Brd_swtch_size: integer:= 8;
+		   ALUFN_size : integer := 5);
+  PORT 
+  (     Board_swtch:in STD_LOGIC_VECTOR(Brd_swtch_size-1 DOWNTO 0);
+		  key0,key1,key2: in STD_LOGIC;		  
+		  ALUout4_o: out STD_LOGIC_VECTOR(HEX_Size-1 downto 0); --this is the output vector of ALUout_size;
+		  hex32:out STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
+		  hex10:out STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
+		  LED95:out STD_LOGIC_VECTOR(ALUFN_size-1 DOWNTO 0);
+		  N_o,C_o,Z_o:out STD_LOGIC;
+		  clk:in STD_LOGIC
+		  );
+END component;
 --------------------------------------------------------
 component top4 is
 	GENERIC (Y_size : INTEGER := 8;
@@ -20,8 +36,7 @@ component top4 is
 		  hex32:out STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
 		  hex10:out STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
 		  LED95:out STD_LOGIC_VECTOR(ALUFN_size-1 DOWNTO 0);
-		  N_o,C_o,Z_o:out STD_LOGIC;
-		  clk:in STD_LOGIC
+		  N_o,C_o,Z_o:out STD_LOGIC
 		); 
 end component;
 
@@ -71,7 +86,7 @@ component AdderSub is
         res: OUT STD_LOGIC_VECTOR(n-1 downto 0));
 end component; 	
 ---------------------------------------------------------	
-component hexDecoder IS
+component hexDecoder IS -- the decoder for the hex
   GENERIC (
 		   HEX_size:integer := 7;
 		   input_size : integer := 4

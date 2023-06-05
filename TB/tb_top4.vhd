@@ -27,20 +27,11 @@ signal hex32:STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
 signal hex10:STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
 signal LED95:STD_LOGIC_VECTOR(ALUFN_size-1 DOWNTO 0);
 signal N_o,C_o,Z_o:STD_LOGIC;
-signal clk:STD_LOGIC;
 begin
 
-	top4_tb : top4 port map (Board_swtch,key0,key1,key2,ALUout4_o,hex32,
-		  hex10,LED95,N_o,C_o,Z_o,clk);
+	top4_tb : top4 port map (Board_swtch,key0,key1,key2,ALUout4_o,hex32,hex10,LED95,N_o,C_o,Z_o);
 			
 	--------- start of stimulus section ------------------	
-	 clk_gen : process
-        begin
-		  clk<='0';
-		  wait for 50 ns;
-		  clk<='1';
-		  wait for 50 ns;
-		end process;
 	
      tb_top4_BoardSwitch : process
         begin

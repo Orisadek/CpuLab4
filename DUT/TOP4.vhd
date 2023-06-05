@@ -20,8 +20,7 @@ ENTITY top4 IS
 		  hex32:out STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
 		  hex10:out STD_LOGIC_VECTOR(HEX_Size-1 DOWNTO 0);
 		  LED95:out STD_LOGIC_VECTOR(ALUFN_size-1 DOWNTO 0);
-		  N_o,C_o,Z_o:out STD_LOGIC;
-		  clk:in STD_LOGIC
+		  N_o,C_o,Z_o:out STD_LOGIC
 		  );
 END top4;
 ------------- complete the top Architecture code --------------
@@ -46,17 +45,17 @@ top4_p : top port map(
 		Zflag_o=>Z_o
 	);
 ---------------------------------------------------------------------		 
-	reg0 <= Board_swtch  when key0 = '0' else
+	reg0 <= Board_swtch  when key0 = '0' else -- latch register for Y
 			unaffected;
 	
-	reg1 <= Board_swtch  when key2 = '0' else
+	reg1 <= Board_swtch  when key2 = '0' else -- latch register for X
 			unaffected;
 	
-	reg2<= Board_swtch(ALUFN_size-1 DOWNTO 0) when key1 = '0' else
+	reg2<= Board_swtch(ALUFN_size-1 DOWNTO 0) when key1 = '0' else -- latch register for Alufn
 			unaffected;
 	
 	-----------------------ALUout decoder------------------------------------
-	hex_portmap_4 : hexDecoder port map(  
+	hex_portmap_4 : hexDecoder port map(   
 		input=>ALUout_decode(half_byte_size-1 downto 0),
 		decode=>ALUout4_o(half_hex_size-1 downto 0)
 	);

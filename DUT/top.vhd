@@ -70,23 +70,23 @@ zero_vec<=(others=>'0');
 -------------------------------------------implementing MUX for output vector signal------------------------------------------	
 		
 		
-		ALUout_o<= res_shftr when ALUFN_i(4 DOWNTO 3) = "10" else
+		ALUout_o<= res_shftr when ALUFN_i(4 DOWNTO 3) = "10" else -- ALU Out value 
 					res_adder when ALUFN_i(4 DOWNTO 3) = "01" else
 					res_lgc when ALUFN_i(4 DOWNTO 3) = "11" else
 					unaffected;
 					
 		
-		Cflag_o<= cout_shftr when ALUFN_i(4 DOWNTO 3) = "10" else
+		Cflag_o<= cout_shftr when ALUFN_i(4 DOWNTO 3) = "10" else -- C flag value 
 					cout_adder when ALUFN_i(4 DOWNTO 3) = "01" else
 					'0' when ALUFN_i(4 DOWNTO 3) = "11" else
 					unaffected;
 		
-		Nflag_o<= res_shftr(n-1) when ALUFN_i(4 DOWNTO 3) = "10" else
+		Nflag_o<= res_shftr(n-1) when ALUFN_i(4 DOWNTO 3) = "10" else -- N flag value 
 					res_adder(n-1) when ALUFN_i(4 DOWNTO 3) = "01" else
 					res_lgc(n-1) when ALUFN_i(4 DOWNTO 3) = "11" else
 					unaffected;
 		
-		Zflag_o<=  '1' when ((ALUFN_i(4 DOWNTO 3) = "10") and res_shftr = zero_vec )  else
+		Zflag_o<=  '1' when ((ALUFN_i(4 DOWNTO 3) = "10") and res_shftr = zero_vec )  else -- Z flag value 
 				'0' when ((ALUFN_i(4 DOWNTO 3) = "10") and not(res_shftr = zero_vec ))  else
 				'1' when ALUFN_i(4 DOWNTO 3) = "01" and  res_adder = zero_vec else
 				'0' when ALUFN_i(4 DOWNTO 3) = "01"and not(res_adder = zero_vec) else
